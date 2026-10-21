@@ -25,7 +25,7 @@
         </p>
         <div class="hero-buttons">
             <a href="{{ url_for('register') }}" class="hero-btn">Create free account</a>
-            <a href="#" class="hero-btn">See how it works</a>
+            <a href="#" class="hero-btn" id="video-open">See how it works</a>
         </div>
     </div>
 
@@ -75,6 +75,20 @@
     </div>
 </section>
 
+{# Replace the video ID in data-src with the real Spendly walkthrough #}
+<dialog class="video-modal" id="video-modal" aria-label="How Spendly works">
+    <div class="video-modal-box">
+        <button type="button" class="video-modal-close" id="video-close" aria-label="Close video">&times;</button>
+        <div class="video-modal-frame">
+            <iframe id="video-iframe"
+                    data-src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0"
+                    title="How Spendly works"
+                    allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                    allowfullscreen></iframe>
+        </div>
+    </div>
+</dialog>
+
 <section class="features">
     <div class="features-inner">
         <div class="feature-card">
@@ -103,4 +117,34 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    (function () {
+        const modal = document.getElementById("video-modal");
+        const iframe = document.getElementById("video-iframe");
+
+        document.getElementById("video-open").addEventListener("click", function (e) {
+            e.preventDefault();
+            iframe.src = iframe.dataset.src;
+            modal.showModal();
+        });
+
+        document.getElementById("video-close").addEventListener("click", function () {
+            modal.close();
+        });
+
+        // Clicks on the backdrop land on the <dialog> itself, not its contents
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) modal.close();
+        });
+
+        // Fires for every way of closing (button, backdrop, Esc). Unloading the
+        // iframe is what actually stops playback.
+        modal.addEventListener("close", function () {
+            iframe.removeAttribute("src");
+        });
+    })();
+</script>
 {% endblock %}

@@ -187,3 +187,57 @@
     .dash-window { padding: 1.25rem; }
     .dash-stats { grid-template-columns: 1fr; }
 }
+
+/* Video modal */
+
+.video-modal {
+    padding: 0;
+    border: none;
+    background: transparent;
+    width: min(960px, calc(100vw - 2rem));
+    max-width: none;
+    margin: auto;
+    overflow: visible;
+}
+
+.video-modal::backdrop {
+    background: rgba(15, 15, 15, 0.75);
+}
+
+.video-modal-box {
+    position: relative;
+    background: var(--ink);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+}
+
+.video-modal-frame {
+    aspect-ratio: 16 / 9;
+}
+
+.video-modal-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.video-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--ink);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.video-modal-close:hover { background: var(--paper-card); }
